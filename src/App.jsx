@@ -6,7 +6,6 @@ import NewsCard from './components/body/NewsCard.jsx'
 import Header from './components/header/header'
 
 function App() {
-
   return (
     <>
     <Header/>

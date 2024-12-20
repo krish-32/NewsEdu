@@ -6,20 +6,29 @@ export const DataProvider = ({ children }) => {
     const [news ,setNews]=useState([]);
     const [newsDescription ,setnewsDescription]=useState([]);
     useEffect(() => {
-            fetch(`https://newedu-50024014869.development.catalystappsail.in/api?title=${inputData}`)
+            fetch(`https://newedu-50024014869.development.catalystappsail.in/api?title=${inputData}`, {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                mode:'no-cors'
+              })
                 .then(response => {
                 if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
+                    console.log("vanakkam");
+                    
+                    throw new Error(`Errorpl:HTTP error! Status : ${response.status}`);
                 }
                 return response.json() // Parse the response as JSON
                 })
                 .then(data => {
                 //console.log(data);
+
                 setNews(data.title);
                 setnewsDescription(data.description)
                 })
                 .catch(error => {
-                console.error('Error:', error.message);
+                console.error('Errorkp:', error.message);
                 });
                 setTimeout(() => setIsLoading(false), 2500);
     }, [inputData]);
