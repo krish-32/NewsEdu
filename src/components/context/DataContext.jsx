@@ -1,34 +1,21 @@
 import React,{createContext, useState,useEffect} from 'react'
 const DataContext = createContext({});
+import axios from 'axios';
 export const DataProvider = ({ children }) => {
     const [isloading,setIsLoading]=useState(true);
     const [inputData, setInputData] = useState('today%20headlines');
     const [news ,setNews]=useState([]);
     const [newsDescription ,setnewsDescription]=useState([]);
     useEffect(() => {
-            fetch(`https://newedu-50024014869.development.catalystappsail.in/api?title=${inputData}`, {
-                method: 'GET',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                mode:'no-cors'
-              })
-                .then(response => {
-                if (!response.ok) {
-                    console.log("vanakkam");
+            axios.get(`https://newedu-50024014869.development.catalystappsail.in/api?title=${inputData}`)
+                .then((response) => {
+                    console.log("data",response);
                     
-                    throw new Error(`Errorpl:HTTP error! Status : ${response.status}`);
-                }
-                return response.json() // Parse the response as JSON
+                    setNews(response.title);
+                    setnewsDescription(response.description)
                 })
-                .then(data => {
-                //console.log(data);
-
-                setNews(data.title);
-                setnewsDescription(data.description)
-                })
-                .catch(error => {
-                console.error('Errorkp:', error.message);
+                .catch((error) => {
+                    console.error('Errorkp:', error);
                 });
                 setTimeout(() => setIsLoading(false), 2500);
     }, [inputData]);
