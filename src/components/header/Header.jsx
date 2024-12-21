@@ -5,9 +5,11 @@ import DataContext from '../context/DataContext';
 const Header = () => {
     const {setInputData,isloading,setIsLoading}=useContext(DataContext);
     const [inputChange,setInputChange] = useState('');
-    const setInputDatafunc=async (data)=>{
+    const setInputDatafunc=async ()=>{
+        console.log(inputChange);
+        
         setIsLoading(true);
-        await setInputData(data);
+        await setInputData(inputChange);
 
     }
   return (
@@ -26,7 +28,7 @@ const Header = () => {
                 disabled={isloading}
                 onChange={(e)=>setInputChange(e.target.value)}
             />
-            <button className="button" onClick={()=>setInputDatafunc(inputChange)}>
+            <button className="button" onClick={()=>setInputDatafunc()}>
                 Search
             </button>
         </div>

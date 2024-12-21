@@ -24,8 +24,6 @@ const NewsCard = () => {
                         </div>
                         </div>)}
     }else{
-        console.log("Sk");
-        
         element.push(<div key={resLength} style={{ width: 300, height: 300, overflow: "hidden", margin:'20px 40%'}}><img src={img} style={{ width: "100%", height: "100%", objectFit: "cover" }} ></img></div>)
     }
   return (

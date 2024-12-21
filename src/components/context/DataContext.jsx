@@ -7,17 +7,22 @@ export const DataProvider = ({ children }) => {
     const [news ,setNews]=useState([]);
     const [newsDescription ,setnewsDescription]=useState([]);
     useEffect(() => {
-            axios.get(`https://newedu-50024014869.development.catalystappsail.in/api?title=${inputData}`)
-                .then((response) => {
-                    console.log("data",response);
-                    
-                    setNews(response.title);
-                    setnewsDescription(response.description)
-                })
-                .catch((error) => {
-                    console.error('Errorkp:', error);
-                });
-                setTimeout(() => setIsLoading(false), 2500);
+        axios
+        .get(`https://newedu-50024014869.development.catalystappsail.in/api?title=${inputData}`, {
+          headers: {
+            'Content-Type': 'application/json', // Set the Content-Type header
+          },
+        })
+        .then((response) => {
+          console.log('data', response.data);
+          setNews(response.data.title);
+          setnewsDescription(response.data.description);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+      
+                setTimeout(() => setIsLoading(false), 3000);
     }, [inputData]);
 
 return(
